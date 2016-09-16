@@ -1,0 +1,404 @@
+Scenario 01: Pay tuition
+Description : A student wants to pay his tuition through myNEU account.
+
+Objects (with Behaviors and State):
+ 
+Object:Student
+	State:name,password,userId;
+	Behavior: visitWebsite(),viewBill(),getUserId(),getPassword(),signIn(),payFeesToUniv(),signOut()
+ 
+ 
+Object:NeuWebsite
+	State:websiteUrl;
+	Behavior:checkLoginAndGetStudentAccount(),acceptFees(),doLogout()
+ 
+Object:myNeuAccount
+	State:profileName,neuId,neuEmail,billingAddress,feesAmount;
+	Behavior:getNeuId(),showBill(),generateReceipt()
+ 
+Object:Money
+	State:amount
+	Behavior:
+
+class Student{
+	String name;
+	String password;
+	String userId;
+	void visitWebsite(NeuWebsite nw){};
+	void viewBill(){};
+	String getUserId(){};
+	String getPassword(){};
+	void signIn(String id, String password){};
+	Money payFeesToUniv(NeuWebsite nw){};
+	void signOut(){} ;
+}
+
+class NeuWebsite{
+	String websiteUrl;
+	myNeuAccount checkLoginAndGetStudentAccount(Student s){};
+	void acceptFees (Money p){};
+	void doLogout(Student s){};
+}
+
+class myNeuAccount{
+	String profileName;
+	String neuId;
+	String neuEmail;
+	String billingAddress;
+	float feesAmount;
+	String getNeuId(){};
+	String showBill(){};
+	String generateReceipt(){};
+}
+
+class Money{
+	float amount;
+}
+
+class PayTutionFees{
+	public static void main(String args[]){
+		NeuWebsite neuWebsite = new NeuWebsite();
+
+		Student student = new Student();
+		student.name="Neha";
+		student.userId ="xyz01";
+		student.password = "pswd";
+
+		student.visitWebsite(neuWebsite);
+		student.signIn(student.getUserId(), student.getPassword());
+		myNeuAccount myNeu = neuWebsite.checkLoginAndGetStudentAccount(student);
+		
+		student.viewBill();
+		myNeu.showBill();
+		Money amount = student.payFeesToUniv(neuWebsite);
+		neuWebsite.acceptFees(amount);
+		myNeu.generateReceipt();
+		student.signOut();
+		neuWebsite.doLogout(student);
+	}	
+}
+
+
+----------------------------------------------------------------------------------------------
+Scenario 02: Order for delivery
+Description : A consumer is going to order a delivery through phone calls
+
+
+Objects (with Behaviors and State):
+ 
+Object:Consumer
+	State:consumerId, phoneNumber,name,address
+	Behavior: selectItem(),placeOrder(),cancelOrder(),showOrder(),viewOrderStatus(),placePhoneCall(),addItemToOrder()
+ 
+ 
+Object:Item 
+	State:name,description,price,itemId;
+	Behavior:getPrice();
+ 
+Object:Order
+	State:Array of items,orderId,quantity, totalPrice,status,deliveryAddress,deliveryDate,deliverTime,consumerId
+	Behavior:getTotalPrice(),addItemToOrder(),addDeliveryDetailsToOrder()
+ 
+
+import java.sql.Time;
+import java.util.Date;
+
+class Consumer{
+	int consumerId, phoneNumber;
+	String name,address;
+	Item selectItem(Item items[]){};
+	void placeOrder(Order orderToBePlaced){};
+	void cancelOrder(){};
+	Item[] showOrder(){};
+	String viewOrderStatus(Order o){};	
+	void placePhoneCall(){};
+	void addItemToOrder(Order order, Item itemToAdd){};
+}
+
+class Item{
+	int itemId;
+	String name,description;
+	float price;
+	float getPrice(){};
+}
+
+class Order{
+	Item[] items; // Array of items
+	int orderId;
+	float quantity, totalPrice;
+	String status;
+	String deliveryAddress;
+	Date deliveryDate;
+	Time deliverTime;
+	int consumerId; // id of consumer who placed the order.
+	float getTotalPrice(){};
+	void addItemToOrder(Item item){};
+	void addDeliveryDetailsToOrder(){};
+}
+
+class OrderDelivery{
+	public static void main(String args[]){
+		
+		// Sample list of available Items.
+		Item i1 = new Item();i1.name="Pen";
+		Item i2 = new Item();i2.name="Paper";
+		Item i3 = new Item();i3.name="Laptop";
+		Item i4 = new Item();i4.name="Desk";
+		Item items[] = {i1,i2,i3,i4};
+
+		Consumer consumer1 = new Consumer();
+		consumer1.name="Steve";
+	
+		consumer1.placePhoneCall();
+		Order orderForConsumer1 = new Order();
+		orderForConsumer1.addDeliveryDetailsToOrder();
+		Item item1ForConsumer1 = consumer1.selectItem(items);
+		Item item2ForConsumer1 = consumer1.selectItem(items);
+		consumer1.addItemToOrder(orderForConsumer1, item1ForConsumer1);
+		consumer1.addItemToOrder(orderForConsumer1, item2ForConsumer1);
+		consumer1.placeOrder(orderForConsumer1);
+		// No payment made by consumer1 as order is placed on phone.
+		
+		Consumer consumer2 = new Consumer();
+		consumer2.name="Pratt";
+
+		consumer2.placePhoneCall();
+		Order orderForConsumer2 = new Order();
+		orderForConsumer2.addDeliveryDetailsToOrder();
+		Item item1ForConsumer2 = consumer2.selectItem(items);
+		Item item2ForConsumer2 = consumer2.selectItem(items);
+		consumer2.addItemToOrder(orderForConsumer2, item1ForConsumer2);
+		consumer2.addItemToOrder(orderForConsumer2, item2ForConsumer2);
+		consumer2.placeOrder(orderForConsumer2);
+		consumer2.cancelOrder();
+	}
+}
+-----------------------------------------------------------------------------------------------------------
+
+Scenario 03: Booking an Airbnb
+Description : A tourist wants to book a house on Airbnb app.
+
+Objects (with Behaviors and State):
+ 
+Object:Customer 
+	State:name,email, password
+	Behavior: login(),searchHouse(),addtoWishList(),makeReservation(),cancelRoom(),payCharges(),logout(),getName(),getPassword()
+ 
+ 
+Object:AirBnbApp 
+	State:List of AirBnb houses
+	Behavior:getAvailableHouses(),checkLogin(),acceptPaymentAndReserveHouse(),generateReceipt(),addHouses()
+ 
+Object:House
+	State:houseId, numPeople, numofRooms,city, state, country,houseDescription, houseAmenities, houseRating,houseAvailability,price;
+	Behavior:getPrice(),getHouseId()
+ 
+Object:Money
+	State:amount;
+	Behavior:
+
+
+class Customer {
+	String name,email, password;
+	void login(String name, String password){};
+	House searchHouse(House[] availableHouses){};
+	void addtoWishList(House house){};
+	void makeReservation(House house, AirBnbApp abnb){};
+	void cancelRoom(House house){};
+	Money payCharges(AirBnbApp abnb){};
+	void logout(){};
+	String getName(){};
+	String getPassword(){};
+}
+
+class AirBnbApp {
+	House[] houses; //List of AirBnb houses
+	House[] getAvailableHouses(){};
+	boolean checkLogin(Customer c){};
+	void acceptPaymentAndReserveHouse(Customer c, Money m, House r){};
+	String generateReceipt(Customer c){};
+	void addHouses(House[] houses){};
+}
+
+class House{
+	int houseId, numPeople, numofRooms;
+	String city, state, country;
+	String houseDescription, houseAmenities, houseRating;
+	boolean houseAvailability;
+	float price;
+	float getPrice(){};
+	int getHouseId(){};
+}
+
+class Money{
+    float amount;
+}
+
+public class BookingAirBnb {
+	public static void main(String args[]){
+		AirBnbApp abnb = new AirBnbApp();
+
+		// Sample houses.
+		House house1 = new House(); house1.houseId = 01; house1.houseDescription="Cottage";
+		House house2 = new House(); house2.houseId = 01; house2.houseDescription="2 Beds";
+		House houses[] = {house1,house2};
+
+		// Add list of houses to airbnb. 
+		abnb.addHouses(houses);
+		
+		Customer c1 = new Customer();
+		c1.name = "Tony";
+		// Customer adds login info.
+		c1.login(c1.getName(), c1.getPassword());
+		
+		// AirBnb authenticates login info.
+		abnb.checkLogin(c1);
+		
+		House[] availableHouses = abnb.getAvailableHouses();
+		House selectedHouse = c1.searchHouse(availableHouses);
+		
+		c1.makeReservation(selectedHouse, abnb);
+		
+		Money amount = c1.payCharges(abnb);
+		abnb.acceptPaymentAndReserveHouse(c1, amount, selectedHouse);
+	}
+}
+-------------------------------------------------------------------------------------------------------------------------------
+Scenario 04: Traveling to LA
+Description : A tourist is trying to find the cheapest flight to LA.
+
+Objects (with Behaviors and State):
+ 
+Object:Tourist
+	State:touristName,touristAddress,phoneNumber;
+	Behavior: FindCheapestFlight(),payMoneyForFlight();
+ 
+ 
+Object:Flight 
+	State:flightNum,source,destination,airlineName,numberOfStops,seats,arrivalDate, departureDate,arrivalTime, departureTime,currentFare, flightDuration;
+	Behavior:getCurrentFare(),getFlightNum();
+ 
+Object:SourceOfFlightInformation
+	State:sourceInfoName,list of flights; 
+	Behavior:getCheapestFlightsToDestination(),acceptMoneyFromTouristAndBookFlight()
+ 
+Object:Money
+	State:amount;
+	Behavior:
+
+
+import java.sql.Time;
+import java.util.Date;
+
+class Tourist{
+	String touristName, touristAddress;
+	long phoneNumber;
+	Flight FindCheapestFlight(Flight flights[]){};
+	Money payMoneyForFlight(SourceOfFlightInformation source){};
+}
+
+class Flight {
+	String flightNum,source,destination,airlineName;
+	int numberOfStops,seats;
+	Date arrivalDate, departureDate;
+	Time arrivalTime, departureTime;
+	float currentFare, flightDuration;
+	float getCurrentFare(){};
+	int getFlightNum(){};
+
+}
+
+class SourceOfFlightInformation{
+	String sourceInfoName; // Website, application etc.
+	Flight[] flights ; //list of flights
+	Flight[] getCheapestFlightsToDestination(String destination){};
+	void acceptMoneyFromTouristAndBookFlight(Tourist tourist, Money money, Flight selectedFlight){}
+}
+
+class Money{
+    float amount;
+}
+
+class TravelToLA{
+	public static void main(String args[]){
+		SourceOfFlightInformation source = new SourceOfFlightInformation();
+
+		Tourist tourist = new Tourist();
+		tourist.touristName = "Sam";
+		
+		// There can be multiple options for cheapest flight.
+		Flight[] cheapestFlights = source.getCheapestFlightsToDestination("LA");
+		
+		// Tourist selects 1 flight from the list.
+		Flight selectedFlight = tourist.FindCheapestFlight(cheapestFlights);	
+		
+        Money money = tourist.payMoneyForFlight(source);
+        acceptMoneyFromTouristAndBookFlight(tourist, money,selectedFlight));
+	}
+}
+
+
+------------------------------------------
+Scenario 05: Drive home
+Description : A student is driving home from school.
+
+Objects (with Behaviors and State):
+ 
+Object:Student
+	State:studentId,studentName;
+	Behavior: selectRoute(),drive()
+ 
+ 
+Object:Vehicle
+	State:type, vehicleNum,speed;
+	Behavior:engineStart(),engineStop(),applyAccelerate(),applyBrake()
+ 
+Object:Route
+	State:source, destination,routeId;
+	Behavior:
+ 
+
+
+class Student{
+	int studentId;
+	String studentName;
+	
+	Route selectRoute(Route[] routes, String source, String destination){};
+	void drive(Vehicle v,Route SelectedRoute){};
+	
+}
+
+class Vehicle{
+	String type, vehicleNum;
+	float speed;
+	void engineStart(){};
+	void engineStop(){};
+	void applyAccelerate(){};
+	void applyBrake(){};
+}
+
+class Route{
+	String source, destination;
+	int routeId;
+}
+
+class DriveHome{
+	public static void main(String args[]){
+		Student student = new Student();
+		student.studentName = "Carl";
+		student.studentId = 1;
+
+		Route route1 = new Route();
+		Route route2 = new Route();
+		Route route3 = new Route();
+		Route[] routes = {route1, route2, route3};
+		
+		Route selectedRoute = student.selectRoute(routes, "school", "home");
+		
+		Vehicle vehicle = new Vehicle();
+		student.drive(vehicle, selectedRoute);
+	}
+}
+
+
+----------------------------------------------------------------------- 
