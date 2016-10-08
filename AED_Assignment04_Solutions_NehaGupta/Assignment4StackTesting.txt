@@ -1,0 +1,60 @@
+package Testing;
+
+
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import Assignment4.Stack;
+
+public class Assignment4Testing {
+
+	Stack stack = new Stack();
+
+	@Test // for normal stack push and pop where last in will be first out
+	public void test00() {
+		stack.push(10);
+		stack.push(9);
+		stack.push(8);
+		stack.push(7);
+
+		Assert.assertEquals(7, stack.pop()); 
+		Assert.assertEquals(8, stack.pop()); 
+		Assert.assertEquals(9, stack.pop()); 
+		Assert.assertEquals(10, stack.pop()); 
+	}
+
+	@Test //for stack underflow will return 0;
+	public void test01() {
+		int a = stack.pop();
+		stack.push(10);
+		stack.push(9);
+		stack.push(8);
+		stack.push(7);
+
+		Assert.assertEquals(0, a); 
+	}
+
+	@Test //for stack overflow will display string "Stack Overflow" on console;
+	public void test02() {
+		final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(outContent));
+		stack.push(10);
+		stack.push(9);
+		stack.push(8);
+		stack.push(7);
+		stack.push(6);
+		stack.push(5);
+		stack.push(4);
+		stack.push(3);
+		stack.push(2);
+		stack.push(1);
+		stack.push(0);
+
+		Assert.assertEquals("Stack Overflow\n", outContent.toString()); 
+	}
+
+}

@@ -1,0 +1,88 @@
+package Assignment4;
+
+/*
+4. Design and implement a class called Car. You need to create necessary attributes for this class, and method if needed
+Define the Car constructor to initialize these values (in that order). Include getter and setter methods for all instance data.
+*/
+
+public class Car {
+
+	private String brand;
+	private String model;
+	private int modelYear;
+	private String color;
+	private double price;
+	private double  milesPerGallon;
+	private GasTank gasTank;
+
+
+	public Car(String brand, String model, int modelYear, String color, double price,double milesPerGallon){
+		this.brand = brand;
+		this.model = model;
+		this.modelYear = modelYear;
+		this.color = color;
+		this.price = price;
+		this.milesPerGallon = milesPerGallon;
+		this.gasTank = new GasTank();
+	}
+
+	public String getModel() {
+		return model;
+	}
+	public void setModel(String model) {
+		this.model = model;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+	public int getModelYear() {
+		return modelYear;
+	}
+
+	public void setModelYear(int modelYear) {
+		this.modelYear = modelYear;
+	}
+	
+	public double getMilesPerGallon() {
+		return milesPerGallon;
+	}
+
+	public void setMilesPerGallon(double milesPerGallon) {
+		this.milesPerGallon = milesPerGallon;
+	}
+
+	public GasTank getGasTank() {
+		return gasTank;
+	}
+
+	public void setGasTank(GasTank gasTank) {
+		this.gasTank = gasTank;
+	}
+
+	public void drive(double distance){
+
+		double reduceAmount = distance/milesPerGallon;
+		gasTank.useGas(reduceAmount);
+	}
+
+
+}

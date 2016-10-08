@@ -1,0 +1,32 @@
+package Assignment4;
+
+public class Main {
+	
+	public static void main(String[] args) {
+
+		Car redBmw= new Car("bmw", "r1234", 2013, "red", 2300,50);
+
+		System.out.println("Your new car is:\n");
+		System.out.println("Brand: "+ redBmw.getBrand() 
+		+ "\nmodel: " + redBmw.getModel() 
+		+ "\nmodel year: " +redBmw.getModelYear()
+		+ "\ncolor: " + redBmw.getColor()
+		+ "\nprice: "+ redBmw.getPrice()
+		+ "\nmiles per gallon: " +redBmw.getMilesPerGallon());
+
+		Driver sam = new Driver("Sam");
+		System.out.println("\nDriver of the car is: " + sam.name );
+
+		sam.addGas(redBmw, 200);
+		System.out.println("\n" + sam.name + " added " + redBmw.getGasTank().amount + " gallons to the car.");
+
+		double distance = 105;
+		sam.drive (redBmw,distance);
+		System.out.println("\n" + sam.name + " drove " + distance + " miles.");
+
+
+		System.out.println("\n" + sam.name + " used "  + distance/redBmw.getMilesPerGallon() + " gallons"
+				+ " and gas remaining is " + redBmw.getGasTank().getGasLevel() + " gallons." );
+
+	}
+}

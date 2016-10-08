@@ -1,0 +1,164 @@
+package Testing;
+
+import static org.junit.Assert.*;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import Assignments.Assignment3;
+
+public class Assignment3Testing {
+	Assignment3 test = new Assignment3();
+	
+	//Test Case for findPowerOfThree
+	@Test
+	public void testPower3() {
+		
+		int[] result = test.findPowerOfThree(3);
+		int[] expectedResults = {1,3,9};
+		Assert.assertArrayEquals(expectedResults, result);
+		
+		int[] result01 = test.findPowerOfThree(0);
+		int[] expectedResults01 = null;
+		Assert.assertArrayEquals(expectedResults01, result01);
+		
+		int[] result02 = test.findPowerOfThree(-1);
+		int[] expectedResults02 = null;
+		Assert.assertArrayEquals(expectedResults02, result02);
+		
+		int[] result03 = test.findPowerOfThree(4);
+		int[] expectedResults03 = {1,3,9,27};
+		Assert.assertArrayEquals(expectedResults03, result03);	
+		
+	
+	}
+	
+	
+	//Test Case for countDigits
+	@Test
+	public void testCountDigits() {
+		int result = test.countDigits(356);
+		int expectedResults = 2;
+		assertEquals(expectedResults, result);
+		
+		int result01 = test.countDigits(100);
+		int expectedResults01 = 1;
+		assertEquals(expectedResults01, result01);
+		
+		int result02 = test.countDigits(0);
+		int expectedResults02 = -1;
+		assertEquals(expectedResults02, result02);
+		
+		
+		int result03 = test.countDigits(-2);
+		int expectedResults03 = -1;
+		assertEquals(expectedResults03, result03);
+		
+		int result04 = test.countDigits(56789);
+		int expectedResults04 = 4;
+		assertEquals(expectedResults04, result04);
+	}
+	
+	
+	//Test Case for reverseVowels
+	@Test
+	public void testReverseVowels() {
+		
+		String result = test.reverseVowels("Hello");
+		String expectedResults = "Holle";
+		assertEquals(expectedResults, result);
+		
+		String result01 = test.reverseVowels("atoet aoe");
+		String expectedResults01 = "etoat eoa";
+		assertEquals(expectedResults01, result01);
+		
+		String result02 = test.reverseVowels("throw arrow" );
+		String expectedResults02 = "throw arrow";
+		assertEquals(expectedResults02, result02);
+		
+		
+	}
+	
+	//Test Case for lengthOfLastWord
+	@Test
+	public void testLengthOfLastWord(){
+		int result = test.lengthOfLastWord("Heloo");
+		int expectedResults = 5;
+		assertEquals(expectedResults, result);
+		
+		int result01 = test.lengthOfLastWord("Hello how");
+		int expectedResults01 = 3;
+		assertEquals(expectedResults01, result01);
+		
+		int result02 = test.lengthOfLastWord("Hello how is");
+		int expectedResults02 = 2;
+		assertEquals(expectedResults02, result02);
+		
+		int result03 = test.lengthOfLastWord("hi ");
+		int expectedResults03 = 0;
+		assertEquals(expectedResults03, result03);
+		
+		
+	}
+
+	//Test Case for reverseString2
+	@Test
+	public void testReverseString2(){
+		String result = test.reverseString2("Hello how are you");
+		String expectedResults = "you are how Hello";
+		assertEquals(expectedResults, result);
+		
+		String result01 = test.reverseString2("hey i am    good");
+		String expectedResults01 = "good    am i hey";
+		assertEquals(expectedResults01, result01);
+		
+		String result02 = test.reverseString2("I am feeling great too.");
+		String expectedResults02 = "too. great feeling am I";
+		assertEquals(expectedResults02, result02);
+		
+		String result03 = test.reverseString2(" ./");
+		String expectedResults03 = "./ ";
+		assertEquals(expectedResults03, result03);
+		
+		
+	
+	}
+	
+	//Test Case for checkMessage
+	@Test
+	public void testCheckMessage(){
+		int result = test.checkMessage("SOSSOSSOPSUO");
+		int expectedResults = 3;
+		assertEquals(expectedResults, result);
+		
+		int result01 = test.checkMessage("SOPPOSTOSIOS OS");
+		int expectedResults01 = 5;
+		assertEquals(expectedResults01, result01);
+		
+		
+		
+	
+	}
+	
+	//Test case for printNumbers
+	@Test
+	public void testPrintNumbersOdd() {
+		final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(outContent));
+		
+		test.printNumbers(4);
+		Assert.assertEquals("0 2 4 6 ", outContent.toString()); 
+	}
+	
+	public void testPrintNumbersEven() {
+		final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(outContent));
+				
+		test.printNumbers(4);
+		Assert.assertEquals("0 2 4 6 ", outContent.toString()); 
+	}
+
+}
